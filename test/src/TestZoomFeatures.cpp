@@ -1,7 +1,7 @@
 #include "ApplicationSetup.hpp"
 #include "TestGraphModel.hpp"
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <QtNodes/internal/BasicGraphicsScene.hpp>
 #include <QtNodes/internal/GraphicsView.hpp>
@@ -47,7 +47,7 @@ TEST_CASE("GraphicsView scale range", "[zoom]")
 
         // Set scale to middle value
         view.setupScale(1.0);
-        CHECK(view.getScale() == Approx(1.0).epsilon(0.01));
+        CHECK(view.getScale() == Catch::Approx(1.0).epsilon(0.01));
 
         // Try to zoom out beyond minimum
         view.setupScale(0.1);
@@ -113,7 +113,7 @@ TEST_CASE("scaleChanged signal", "[zoom]")
         if (spy.count() > 0) {
             QList<QVariant> arguments = spy.takeLast();
             double scale = arguments.at(0).toDouble();
-            CHECK(scale == Approx(1.5).epsilon(0.01));
+            CHECK(scale == Catch::Approx(1.5).epsilon(0.01));
         }
     }
 }

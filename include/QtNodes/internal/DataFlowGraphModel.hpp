@@ -89,7 +89,7 @@ public:
      * stored pointer to the given type
      */
     template<typename NodeDelegateModelType>
-    NodeDelegateModelType *delegateModel(NodeId const nodeId)
+    NodeDelegateModelType *delegateModel(NodeId const nodeId) const
     {
         auto it = _models.find(nodeId);
         if (it == _models.end())

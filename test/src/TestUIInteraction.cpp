@@ -8,7 +8,7 @@
 #include <QtNodes/internal/ConnectionGraphicsObject.hpp>
 #include <QtNodes/Definitions>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <QTest>
 #include <QSignalSpy>
 #include <QGraphicsSceneMouseEvent>
@@ -80,8 +80,8 @@ TEST_CASE("UI Interaction - Node Movement", "[ui][visual]")
         
         // Verify initial position
         QPointF actualInitialPos = model->nodeData(nodeId, NodeRole::Position).value<QPointF>();
-        CHECK(actualInitialPos.x() == Approx(initialPos.x()).margin(1.0));
-        CHECK(actualInitialPos.y() == Approx(initialPos.y()).margin(1.0));
+        CHECK(actualInitialPos.x() == Catch::Approx(initialPos.x()).margin(1.0));
+        CHECK(actualInitialPos.y() == Catch::Approx(initialPos.y()).margin(1.0));
 
         // Set up signal spy for position updates
         QSignalSpy positionSpy(model.get(), &TestGraphModel::nodePositionUpdated);
@@ -94,8 +94,8 @@ TEST_CASE("UI Interaction - Node Movement", "[ui][visual]")
 
         // Verify the node moved in the model
         QPointF finalPos = model->nodeData(nodeId, NodeRole::Position).value<QPointF>();
-        CHECK(finalPos.x() == Approx(newPos.x()).epsilon(0.1));
-        CHECK(finalPos.y() == Approx(newPos.y()).epsilon(0.1));
+        CHECK(finalPos.x() == Catch::Approx(newPos.x()).epsilon(0.1));
+        CHECK(finalPos.y() == Catch::Approx(newPos.y()).epsilon(0.1));
         
         // Verify signal was emitted
         CHECK(positionSpy.count() >= 1);

@@ -1,5 +1,6 @@
 if (USE_QT6)
   find_package(Qt6 COMPONENTS Test)
+  find_package(Catch2 COMPONENTS Test)
 else()
   find_package(Qt5 COMPONENTS Test)
 endif()
@@ -37,7 +38,7 @@ target_include_directories(test_nodes
 target_link_libraries(test_nodes
   PRIVATE
     QtNodes::QtNodes
-    Catch2::Catch2
+    Catch2::Catch2WithMain
     Qt${QT_VERSION_MAJOR}::Test
 )
 

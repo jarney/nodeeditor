@@ -5,7 +5,7 @@
 #include <QtNodes/NodeDelegateModel>
 #include <QtNodes/NodeDelegateModelRegistry>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <QSignalSpy>
 
