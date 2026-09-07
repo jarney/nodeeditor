@@ -564,8 +564,6 @@ QJsonObject DataFlowGraphModel::saveNode(NodeId const nodeId) const
 
     {
         QPointF const pos = nodeData(nodeId, NodeRole::Position).value<QPointF>();
-	fprintf(stderr, "Saving position %lf %lf\n", pos.x(), pos.y());
-
         QJsonObject posJson;
         posJson["x"] = pos.x();
         posJson["y"] = pos.y();
@@ -656,8 +654,6 @@ void DataFlowGraphModel::loadNode(QJsonObject const &nodeJson)
 
         QJsonObject posJson = nodeJson["position"].toObject();
         QPointF const pos(posJson["x"].toDouble(), posJson["y"].toDouble());
-	fprintf(stderr, "Loading position %lf %lf\n", pos.x(), pos.y());
-
         setNodeData(restoredNodeId, NodeRole::Position, pos);
 
         auto *restoredModel = _models[restoredNodeId].get();

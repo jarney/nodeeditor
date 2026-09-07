@@ -92,7 +92,6 @@ BasicGraphicsScene::BasicGraphicsScene(AbstractGraphModel &graphModel, QObject *
     , _groupingEnabled(true)
 {
     setItemIndexMethod(QGraphicsScene::NoIndex);
-
     connect(&_graphModel,
             &AbstractGraphModel::connectionCreated,
             this,
@@ -389,7 +388,6 @@ void BasicGraphicsScene::onNodePositionUpdated(NodeId const nodeId)
     if (node) {
 	auto pos = _graphModel.nodeData(nodeId, NodeRole::Position).value<QPointF>();
 	node->setPos(pos);
-	fprintf(stderr, "on Node Position Updated %lf %lf\n", pos.x(), pos.y());
         node->update();
         _nodeDrag = true;
     }
@@ -398,7 +396,6 @@ void BasicGraphicsScene::onNodePositionUpdated(NodeId const nodeId)
 void BasicGraphicsScene::onNodeUpdated(NodeId const nodeId)
 {
     auto node = nodeGraphicsObject(nodeId);
-
     if (node) {
         node->setGeometryChanged();
 

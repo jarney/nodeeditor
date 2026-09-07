@@ -151,6 +151,7 @@ void NodeGraphicsObject::setNodeGroup(std::shared_ptr<NodeGroup> group)
 
 void NodeGraphicsObject::moveConnections() const
 {
+    _graphModel.setNodeData(_nodeId, NodeRole::Position, pos());
     auto const &connected = _graphModel.allConnectionIds(_nodeId);
 
     for (auto &cnId : connected) {
