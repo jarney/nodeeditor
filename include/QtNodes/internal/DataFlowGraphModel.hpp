@@ -49,6 +49,14 @@ public:
 
     bool connectionPossible(ConnectionId const connectionId) const override;
 
+    /**
+     * Returns true if an output port of the given type is allowed to connect
+     * to an input port of another type.  This is useful when you want to allow
+     * certain types of 'casting' operations where more than one data type may
+     * be accepted.
+     */
+    bool dataTypeConnectionAllowed(const NodeDataType & outType, const NodeDataType & inType) const;
+
     void addConnection(ConnectionId const connectionId) override;
 
     bool nodeExists(NodeId const nodeId) const override;

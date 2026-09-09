@@ -113,6 +113,11 @@ NodeId DataFlowGraphModel::addNode(QString const nodeType)
     return InvalidNodeId;
 }
 
+bool DataFlowGraphModel::dataTypeConnectionAllowed(const NodeDataType & outType, const NodeDataType & inType) const
+{
+    return outType.id == inType.id;
+}
+
 bool DataFlowGraphModel::connectionPossible(ConnectionId const connectionId) const
 {
     // Check if nodes exist
@@ -150,7 +155,9 @@ bool DataFlowGraphModel::connectionPossible(ConnectionId const connectionId) con
         return connected.empty() || (policy == ConnectionPolicy::Many);
     };
 
-    bool const basicChecks = getDataType(PortType::Out).id == getDataType(PortType::In).id
+    bool typeCheck = dataTypeConnectionAllowed(getDataType(PortType::Out), getDataType(PortType::In));
+
+    bool const basicChecks = typeCheck
                              && portVacant(PortType::Out) && portVacant(PortType::In)
                              && checkPortBounds(PortType::Out) && checkPortBounds(PortType::In);
 
