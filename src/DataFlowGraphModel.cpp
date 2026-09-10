@@ -64,53 +64,58 @@ NodeId DataFlowGraphModel::addNode(QString const nodeType)
     std::unique_ptr<NodeDelegateModel> model = _registry->create(nodeType);
 
     if (model) {
-        NodeId newId = newNodeId();
-
-        connect(model.get(),
-                &NodeDelegateModel::dataUpdated,
-                [newId, this](PortIndex const portIndex) {
-                    onOutPortDataUpdated(newId, portIndex);
-                });
-
-        connect(model.get(),
-                &NodeDelegateModel::portsAboutToBeDeleted,
-                this,
-                [newId, this](PortType const portType, PortIndex const first, PortIndex const last) {
-                    portsAboutToBeDeleted(newId, portType, first, last);
-                });
-
-        connect(model.get(),
-                &NodeDelegateModel::portsDeleted,
-                this,
-                &DataFlowGraphModel::portsDeleted);
-
-        connect(model.get(),
-                &NodeDelegateModel::portsAboutToBeInserted,
-                this,
-                [newId, this](PortType const portType, PortIndex const first, PortIndex const last) {
-                    portsAboutToBeInserted(newId, portType, first, last);
-                });
-
-        connect(model.get(),
-                &NodeDelegateModel::portsInserted,
-                this,
-                &DataFlowGraphModel::portsInserted);
-
-        connect(model.get(), &NodeDelegateModel::requestNodeUpdate, this, [newId, this]() {
-            Q_EMIT nodeUpdated(newId);
-        });
-
-        _models[newId] = std::move(model);
-
-        _labels[newId] = _models[newId]->label();
-        _labelsVisible[newId] = _models[newId]->labelVisible();
-
-        Q_EMIT nodeCreated(newId);
-
-        return newId;
+	return addNode(std::move(model));
     }
 
     return InvalidNodeId;
+}
+
+NodeId DataFlowGraphModel::addNode(std::unique_ptr<NodeDelegateModel> model)
+{
+    NodeId newId = newNodeId();
+
+    connect(model.get(),
+            &NodeDelegateModel::dataUpdated,
+            [newId, this](PortIndex const portIndex) {
+                onOutPortDataUpdated(newId, portIndex);
+            });
+
+    connect(model.get(),
+            &NodeDelegateModel::portsAboutToBeDeleted,
+            this,
+            [newId, this](PortType const portType, PortIndex const first, PortIndex const last) {
+                portsAboutToBeDeleted(newId, portType, first, last);
+            });
+
+    connect(model.get(),
+            &NodeDelegateModel::portsDeleted,
+            this,
+            &DataFlowGraphModel::portsDeleted);
+
+    connect(model.get(),
+            &NodeDelegateModel::portsAboutToBeInserted,
+            this,
+            [newId, this](PortType const portType, PortIndex const first, PortIndex const last) {
+                portsAboutToBeInserted(newId, portType, first, last);
+            });
+
+    connect(model.get(),
+            &NodeDelegateModel::portsInserted,
+            this,
+            &DataFlowGraphModel::portsInserted);
+
+    connect(model.get(), &NodeDelegateModel::requestNodeUpdate, this, [newId, this]() {
+        Q_EMIT nodeUpdated(newId);
+    });
+
+    _models[newId] = std::move(model);
+
+    _labels[newId] = _models[newId]->label();
+    _labelsVisible[newId] = _models[newId]->labelVisible();
+
+    Q_EMIT nodeCreated(newId);
+
+    return newId;
 }
 
 bool DataFlowGraphModel::dataTypeConnectionAllowed(const NodeDataType & outType, const NodeDataType & inType) const

@@ -46,6 +46,7 @@ public:
     bool connectionExists(ConnectionId const connectionId) const override;
 
     NodeId addNode(QString const nodeType) override;
+    NodeId addNode(std::unique_ptr<NodeDelegateModel> model);
 
     bool connectionPossible(ConnectionId const connectionId) const override;
 
