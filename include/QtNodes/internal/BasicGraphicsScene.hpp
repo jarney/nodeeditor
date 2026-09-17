@@ -255,13 +255,13 @@ public:
     /**
      * @brief Creates the default menu when a node is selected.
      */
-    QMenu *createStdMenu(QPointF const scenePos);
+    virtual QMenu *createStdMenu(QPointF const scenePos);
 
     /**
      * @brief Creates the menu when a group is selected.
      * @param groupGo reference to the GroupGraphicsObject related to the selected group.
      */
-    QMenu *createGroupMenu(QPointF const scenePos, GroupGraphicsObject *groupGo);
+    virtual QMenu *createGroupMenu(QPointF const scenePos, GroupGraphicsObject *groupGo);
 
 Q_SIGNALS:
     void modified(BasicGraphicsScene *);

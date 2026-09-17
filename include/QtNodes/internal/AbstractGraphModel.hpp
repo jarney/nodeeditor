@@ -188,6 +188,18 @@ public:
 
     virtual bool loopsEnabled() const { return true; }
 
+    /**
+     * This method is used to indicate that the given node should be a part
+     * of the given node group.  Node groups are not heirarchal, so
+     * if a node is a member of one group, it is not a member of another.
+     */
+    virtual void setNodeGroup(NodeId const nodeId, GroupId const groupId) { Q_UNUSED(nodeId); Q_UNUSED(groupId); }
+    /**
+     * This method is used to indicate that the given node should no longer
+     * be a part of any node group.
+     */
+    virtual void unsetNodeGroup(NodeId const nodeId) { Q_UNUSED(nodeId); }
+    
 public:
     /**
      * Function clears connections attached to the ports that are scheduled to be

@@ -147,8 +147,15 @@ void NodeGraphicsObject::setGeometryChanged()
 void NodeGraphicsObject::setNodeGroup(std::shared_ptr<NodeGroup> group)
 {
     _nodeGroup = group;
+    _graphModel.setNodeGroup(_nodeId, group->id());
 }
 
+void NodeGraphicsObject::unsetNodeGroup()
+{
+    _nodeGroup = std::weak_ptr<NodeGroup>();
+    _graphModel.unsetNodeGroup(_nodeId);
+}
+    
 void NodeGraphicsObject::moveConnections() const
 {
     _graphModel.setNodeData(_nodeId, NodeRole::Position, pos());

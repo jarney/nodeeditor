@@ -73,7 +73,7 @@ public:
     void setNodeGroup(std::shared_ptr<NodeGroup> group);
 
     /// Unsets NodeGroup, setting it to an empty pointer.
-    void unsetNodeGroup() { _nodeGroup = std::weak_ptr<NodeGroup>(); }
+    void unsetNodeGroup();
 
     /// Getter for the NodeGroup object.
     std::weak_ptr<NodeGroup> nodeGroup() const { return _nodeGroup; }
