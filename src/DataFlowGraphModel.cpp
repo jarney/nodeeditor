@@ -337,6 +337,8 @@ QVariant DataFlowGraphModel::nodeData(NodeId nodeId, NodeRole role) const
     case NodeRole::ProgressValue:
         result = model->progressValue();
         break;
+    case NodeRole::Tooltip:
+        break;
     }
 
     return result;
@@ -433,6 +435,8 @@ bool DataFlowGraphModel::setNodeData(NodeId nodeId, NodeRole role, QVariant valu
         break;
 
     case NodeRole::ProgressValue:
+        break;
+    case NodeRole::Tooltip:
         break;
     }
 

@@ -186,6 +186,12 @@ void NodeGraphicsObject::paint(QPainter *painter, QStyleOptionGraphicsItem const
             tooltip = state._stateMessage;
         }
     }
+    else {
+	var = _graphModel.nodeData(_nodeId, NodeRole::Tooltip);
+	if (var.canConvert<QString>()) {
+	    tooltip = var.value<QString>();
+	}
+    }
     setToolTip(tooltip);
 
     painter->setClipRect(option->exposedRect);

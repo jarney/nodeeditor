@@ -38,6 +38,7 @@ Q_NAMESPACE_EXPORT(NODE_EDITOR_PUBLIC)
         ProgressValue = 14,    ///< 'QString' for the progress value
         Label = 15,            ///< `QString` for node label.
         LabelEditable = 16,    ///< `bool` to indicate label editing support.
+	Tooltip = 17,          ///< 'QString` to indicate a tooltip that should be shown.
     };
 
 Q_ENUM_NS(NodeRole)
